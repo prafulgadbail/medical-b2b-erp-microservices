@@ -1,0 +1,102 @@
+<svg viewBox="0 0 1150 580" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+
+  <defs>
+    <marker id="arrowB" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1150" height="580" fill="#0d1117" rx="12"/>
+  <text x="575" y="28" text-anchor="middle" fill="#f0f6fc" font-size="16" font-weight="600">Real User Flow — Frontend Load + Live Backend API Calls</text>
+  <text x="575" y="47" text-anchor="middle" fill="#8b949e" font-size="11">Hospital user opens the app → page loads from CDN → the loaded React app calls the backend APIs</text>
+
+  <!-- User -->
+  <g>
+    <circle cx="70" cy="270" r="30" fill="#1f2937" stroke="#58a6ff" stroke-width="2"/>
+    <text x="70" y="278" text-anchor="middle" font-size="20">🏥</text>
+    <text x="70" y="312" text-anchor="middle" fill="#c9d1d9" font-size="10">Hospital User</text>
+  </g>
+
+  <!-- Lane 1 (top, y=150): Route53 -> CloudFront -> S3 -->
+  <path d="M 100,255 L 165,155" stroke="#569A31" stroke-width="2" fill="none" marker-end="url(#arrowB)"/>
+
+  <g>
+    <rect x="170" y="125" width="90" height="50" rx="8" fill="#3b1f6e" stroke="#8C4FFF" stroke-width="2"/>
+    <text x="215" y="146" text-anchor="middle" fill="#fff" font-size="9">Route 53</text>
+    <text x="215" y="161" text-anchor="middle" fill="#c9b8ff" font-size="7">DNS resolve</text>
+  </g>
+  <path d="M 260,150 L 295,150" stroke="#569A31" stroke-width="2" fill="none" marker-end="url(#arrowB)"/>
+
+  <g>
+    <rect x="300" y="125" width="100" height="50" rx="8" fill="#3b1f6e" stroke="#8C4FFF" stroke-width="2"/>
+    <text x="350" y="146" text-anchor="middle" fill="#fff" font-size="9">CloudFront</text>
+    <text x="350" y="161" text-anchor="middle" fill="#c9b8ff" font-size="7">Edge cache</text>
+  </g>
+  <path d="M 400,150 L 435,150" stroke="#569A31" stroke-width="2" fill="none" marker-end="url(#arrowB)"/>
+
+  <g>
+    <rect x="440" y="125" width="90" height="50" rx="8" fill="#1e3a24" stroke="#569A31" stroke-width="2"/>
+    <text x="485" y="146" text-anchor="middle" fill="#fff" font-size="9">S3</text>
+    <text x="485" y="161" text-anchor="middle" fill="#a7e3a1" font-size="7">React build</text>
+  </g>
+  <path d="M 530,155 L 590,245" stroke="#569A31" stroke-width="2" fill="none" marker-end="url(#arrowB)"/>
+
+  <!-- React App bridge box (row 2, y=270) -->
+  <g>
+    <rect x="595" y="245" width="150" height="55" rx="10" fill="#132436" stroke="#61DAFB" stroke-width="2.5"/>
+    <text x="670" y="266" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">🌐 React App</text>
+    <text x="670" y="280" text-anchor="middle" fill="#9fe3ff" font-size="7">Running in browser</text>
+    <text x="670" y="292" text-anchor="middle" fill="#9fe3ff" font-size="7">calls backend APIs</text>
+  </g>
+
+  <!-- Lane 2 (backend, y=270): React App -> ALB -> EKS -> Mongo below -->
+  <path d="M 745,272 L 800,272" stroke="#f778ba" stroke-width="2" fill="none" marker-end="url(#arrowB)"/>
+
+  <g>
+    <rect x="805" y="247" width="95" height="50" rx="8" fill="#3b1f6e" stroke="#8C4FFF" stroke-width="2"/>
+    <text x="852" y="268" text-anchor="middle" fill="#fff" font-size="9">ALB Ingress</text>
+    <text x="852" y="283" text-anchor="middle" fill="#c9b8ff" font-size="7">Routes /api/*</text>
+  </g>
+  <path d="M 900,272 L 935,272" stroke="#f778ba" stroke-width="2" fill="none" marker-end="url(#arrowB)"/>
+
+  <!-- EKS box -->
+  <g>
+    <rect x="940" y="210" width="170" height="120" rx="8" fill="#0f2a52" stroke="#326CE5" stroke-width="2.5"/>
+    <text x="1025" y="232" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">☸️ Amazon EKS</text>
+    <text x="1025" y="250" text-anchor="middle" fill="#9fc0ff" font-size="8">order-service</text>
+    <text x="1025" y="264" text-anchor="middle" fill="#9fc0ff" font-size="7">↳ product-service (reserve stock)</text>
+    <text x="1025" y="278" text-anchor="middle" fill="#9fc0ff" font-size="7">↳ user-service (JWT validate)</text>
+    <text x="1025" y="295" text-anchor="middle" fill="#9fc0ff" font-size="7.5">→ approve order</text>
+    <text x="1025" y="312" text-anchor="middle" fill="#9fc0ff" font-size="7">3 pods, same cluster</text>
+  </g>
+
+  <!-- EKS -> MongoDB (clean vertical, no overlap with ALB) -->
+  <path d="M 1025,330 L 1025,395" stroke="#47A248" stroke-width="2" fill="none" marker-end="url(#arrowB)"/>
+
+  <g>
+    <rect x="940" y="400" width="170" height="60" rx="8" fill="#0f2416" stroke="#47A248" stroke-width="2"/>
+    <text x="1025" y="424" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">🍃 MongoDB Atlas</text>
+    <text x="1025" y="440" text-anchor="middle" fill="#a7e3a1" font-size="7">users_db · products_db</text>
+    <text x="1025" y="452" text-anchor="middle" fill="#a7e3a1" font-size="7">orders_db (per-service)</text>
+  </g>
+
+  <!-- Response back to browser (clear space above lane 2, below lane 1) -->
+  <path d="M 940,240 L 800,195 L 745,245" stroke="#39d353" stroke-width="1.5" stroke-dasharray="3,3" fill="none" marker-end="url(#arrowB)"/>
+  <text x="810" y="192" text-anchor="middle" fill="#39d353" font-size="8">JSON response → UI updates live</text>
+
+  <!-- Motion paths -->
+  <path id="loadp" d="M 70,270 L 215,150 L 300,150 L 400,150 L 485,150 L 590,270 L 670,270" fill="none" stroke="none"/>
+  <path id="apip" d="M 670,270 L 800,272 L 852,272 L 940,272 L 1025,270 L 1025,330 L 1025,400" fill="none" stroke="none"/>
+
+  <circle r="6" fill="#39d353">
+    <animateMotion dur="3s" repeatCount="indefinite"><mpath href="#loadp"/></animateMotion>
+  </circle>
+  <circle r="6" fill="#f778ba">
+    <animateMotion dur="3.5s" begin="1.5s" repeatCount="indefinite"><mpath href="#apip"/></animateMotion>
+  </circle>
+
+  <text x="290" y="105" fill="#569A31" font-size="10">① Page load — DNS → CDN → S3 (cached at edge)</text>
+  <text x="900" y="185" fill="#f778ba" font-size="10">② Live API call — browser → ALB → EKS → MongoDB</text>
+
+  <text x="575" y="530" text-anchor="middle" fill="#8b949e" font-size="10">Frontend and backend are fully connected — the browser itself drives every API call after load</text>
+</svg>

@@ -1,0 +1,120 @@
+<svg viewBox="0 0 1150 620" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+
+  <defs>
+    <marker id="arrowA" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1150" height="620" fill="#0d1117" rx="12"/>
+
+  <text x="575" y="28" text-anchor="middle" fill="#f0f6fc" font-size="16" font-weight="600">CI/CD — 4 Independent Pipelines</text>
+  <text x="575" y="47" text-anchor="middle" fill="#8b949e" font-size="11">Frontend + 3 Microservices — only the changed folder triggers its own pipeline</text>
+
+  <g>
+    <circle cx="55" cy="320" r="24" fill="#1f2937" stroke="#58a6ff" stroke-width="2"/>
+    <text x="55" y="327" text-anchor="middle" font-size="16">👨‍💻</text>
+    <text x="55" y="356" text-anchor="middle" fill="#c9d1d9" font-size="10">Developer</text>
+  </g>
+  <path d="M 79,320 L 94,320" stroke="#6b7280" stroke-width="2" marker-end="url(#arrowA)"/>
+  <text x="86" y="308" text-anchor="middle" fill="#8b949e" font-size="8">push</text>
+
+  <g>
+    <rect x="95" y="90" width="140" height="460" rx="10" fill="#161b22" stroke="#8b949e" stroke-width="2"/>
+    <text x="165" y="112" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">GitHub Repo</text>
+    <text x="165" y="173" text-anchor="middle" fill="#c9b8ff" font-size="9">📁 /frontend</text>
+    <text x="165" y="273" text-anchor="middle" fill="#ffb3a3" font-size="9">📁 /user-service</text>
+    <text x="165" y="373" text-anchor="middle" fill="#9fd3ff" font-size="9">📁 /product-service</text>
+    <text x="165" y="473" text-anchor="middle" fill="#a7e3a1" font-size="9">📁 /order-service</text>
+  </g>
+
+  <path d="M 235,170 L 300,170" stroke="#8C4FFF" stroke-width="2" fill="none" marker-end="url(#arrowA)"/>
+  <path d="M 235,270 L 300,270" stroke="#D24939" stroke-width="2" fill="none" marker-end="url(#arrowA)"/>
+  <path d="M 235,370 L 300,370" stroke="#2496ED" stroke-width="2" fill="none" marker-end="url(#arrowA)"/>
+  <path d="M 235,470 L 300,470" stroke="#569A31" stroke-width="2" fill="none" marker-end="url(#arrowA)"/>
+
+  <!-- Pipeline box 0: frontend -->
+  <g>
+    <rect x="305" y="135" width="170" height="70" rx="8" fill="#3b1f6e" stroke="#8C4FFF" stroke-width="2"/>
+    <text x="390" y="155" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Pipeline: frontend</text>
+    <text x="390" y="171" text-anchor="middle" fill="#c9b8ff" font-size="8">npm install → npm build</text>
+    <text x="390" y="185" text-anchor="middle" fill="#c9b8ff" font-size="8">aws s3 sync → CDN invalidate</text>
+  </g>
+
+  <!-- Pipeline box 1: user-service (with SonarQube) -->
+  <g>
+    <rect x="305" y="235" width="170" height="70" rx="8" fill="#3d1f1a" stroke="#D24939" stroke-width="2"/>
+    <text x="390" y="253" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Pipeline: user-service</text>
+    <text x="390" y="268" text-anchor="middle" fill="#ffb3a3" font-size="7.5">mvn build → SonarQube scan</text>
+    <text x="390" y="281" text-anchor="middle" fill="#ffb3a3" font-size="7.5">docker build → ECR → kubectl apply</text>
+  </g>
+
+  <!-- Pipeline box 2: product-service (with SonarQube) -->
+  <g>
+    <rect x="305" y="335" width="170" height="70" rx="8" fill="#0f2a3d" stroke="#2496ED" stroke-width="2"/>
+    <text x="390" y="353" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Pipeline: product-service</text>
+    <text x="390" y="368" text-anchor="middle" fill="#9fd3ff" font-size="7.5">mvn build → SonarQube scan</text>
+    <text x="390" y="381" text-anchor="middle" fill="#9fd3ff" font-size="7.5">docker build → ECR → kubectl apply</text>
+  </g>
+
+  <!-- Pipeline box 3: order-service (with SonarQube) -->
+  <g>
+    <rect x="305" y="435" width="170" height="70" rx="8" fill="#1e3a24" stroke="#569A31" stroke-width="2"/>
+    <text x="390" y="453" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">Pipeline: order-service</text>
+    <text x="390" y="468" text-anchor="middle" fill="#a7e3a1" font-size="7.5">mvn build → SonarQube scan</text>
+    <text x="390" y="481" text-anchor="middle" fill="#a7e3a1" font-size="7.5">docker build → ECR → kubectl apply</text>
+  </g>
+
+  <path d="M 475,170 L 550,170" stroke="#8C4FFF" stroke-width="2" fill="none" marker-end="url(#arrowA)"/>
+  <path d="M 475,270 L 570,270" stroke="#D24939" stroke-width="2" fill="none" marker-end="url(#arrowA)"/>
+  <path d="M 475,370 L 570,370" stroke="#2496ED" stroke-width="2" fill="none" marker-end="url(#arrowA)"/>
+  <path d="M 475,470 L 570,470" stroke="#569A31" stroke-width="2" fill="none" marker-end="url(#arrowA)"/>
+
+  <g>
+    <rect x="555" y="135" width="190" height="70" rx="8" fill="#1e3a24" stroke="#569A31" stroke-width="2"/>
+    <text x="650" y="160" text-anchor="middle" fill="#fff" font-size="10" font-weight="600">S3 + CloudFront</text>
+    <text x="650" y="178" text-anchor="middle" fill="#a7e3a1" font-size="8">Static site, edge-cached</text>
+    <text x="650" y="192" text-anchor="middle" fill="#a7e3a1" font-size="8">globally</text>
+  </g>
+
+  <rect x="555" y="215" width="210" height="320" rx="10" fill="none" stroke="#326CE5" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="660" y="235" text-anchor="middle" fill="#9fc0ff" font-size="11" font-weight="600">☸️ Amazon EKS Cluster</text>
+
+  <g>
+    <rect x="575" y="245" width="170" height="50" rx="8" fill="#0f2a52" stroke="#D24939" stroke-width="2"/>
+    <text x="660" y="266" text-anchor="middle" fill="#fff" font-size="9">user-service pod</text>
+    <text x="660" y="280" text-anchor="middle" fill="#9fc0ff" font-size="7">port 8081</text>
+  </g>
+  <g>
+    <rect x="575" y="345" width="170" height="50" rx="8" fill="#0f2a52" stroke="#2496ED" stroke-width="2"/>
+    <text x="660" y="366" text-anchor="middle" fill="#fff" font-size="9">product-service pod</text>
+    <text x="660" y="380" text-anchor="middle" fill="#9fc0ff" font-size="7">port 8082</text>
+  </g>
+  <g>
+    <rect x="575" y="445" width="170" height="50" rx="8" fill="#0f2a52" stroke="#569A31" stroke-width="2"/>
+    <text x="660" y="466" text-anchor="middle" fill="#fff" font-size="9">order-service pod</text>
+    <text x="660" y="480" text-anchor="middle" fill="#9fc0ff" font-size="7">port 8083</text>
+  </g>
+
+  <path d="M 745,170 L 850,170 L 850,320 L 958,320" stroke="#569A31" stroke-width="1.5" fill="none" marker-end="url(#arrowA)"/>
+  <path d="M 765,375 L 880,375 L 880,320 L 958,320" stroke="#326CE5" stroke-width="1.5" fill="none"/>
+
+  <g>
+    <circle cx="990" cy="320" r="28" fill="#1e3a24" stroke="#39d353" stroke-width="2"/>
+    <text x="990" y="328" text-anchor="middle" font-size="18">✅</text>
+    <text x="990" y="362" text-anchor="middle" fill="#c9d1d9" font-size="11">Live</text>
+  </g>
+
+  <path id="fp" d="M 55,320 L 165,170 L 300,170 L 475,170 L 650,170 L 850,170 L 850,320 L 958,320" fill="none" stroke="none"/>
+  <path id="up" d="M 55,320 L 165,270 L 300,270 L 475,270 L 660,270 L 765,290 L 880,320 L 958,320" fill="none" stroke="none"/>
+  <path id="pp" d="M 55,320 L 165,370 L 300,370 L 475,370 L 660,370 L 765,375 L 880,320 L 958,320" fill="none" stroke="none"/>
+  <path id="op" d="M 55,320 L 165,470 L 300,470 L 475,470 L 660,470 L 765,450 L 880,320 L 958,320" fill="none" stroke="none"/>
+
+  <circle r="6" fill="#8C4FFF"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#fp"/></animateMotion></circle>
+  <circle r="6" fill="#D24939"><animateMotion dur="5s" begin="0.6s" repeatCount="indefinite"><mpath href="#up"/></animateMotion></circle>
+  <circle r="6" fill="#2496ED"><animateMotion dur="5s" begin="1.2s" repeatCount="indefinite"><mpath href="#pp"/></animateMotion></circle>
+  <circle r="6" fill="#569A31"><animateMotion dur="5s" begin="1.8s" repeatCount="indefinite"><mpath href="#op"/></animateMotion></circle>
+
+  <text x="575" y="585" text-anchor="middle" fill="#8b949e" font-size="11">① Frontend deploy → S3 / CloudFront &#160;&#160;&#160; ② Backend deploy → EKS (3 independent services)</text>
+  <text x="575" y="602" text-anchor="middle" fill="#8b949e" font-size="10">Each colored dot = one independent pipeline, triggered only when its own folder changes</text>
+</svg>
