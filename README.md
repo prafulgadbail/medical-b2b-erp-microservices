@@ -57,7 +57,7 @@ Each microservice owns its own database (**database-per-service** pattern) — n
 
 ### ⚡ Live CI/CD Pipeline Flow
 
-<img src="assets/cicd-flow.svg" alt="CI/CD pipeline animated flow" width="100%"/>
+<img src="docs/cicd-flow.svg" alt="CI/CD pipeline animated flow" width="100%"/>
 
 These are **3 independent microservices**, each with its own codebase, Dockerfile, and Jenkinsfile — hosted together in a single GitHub repository for convenience, but built, tested, and deployed completely independently. A push only triggers the pipeline for the service whose folder actually changed; the other two are untouched. Each pipeline runs the same stages on its own: **Path-filtered Trigger → Maven Build & Test → Docker Build → Push to ECR → `kubectl apply` on EKS** — so `user-service`, `product-service`, and `order-service` can be built, tested, and deployed on completely separate schedules without blocking each other.
 
@@ -65,7 +65,7 @@ These are **3 independent microservices**, each with its own codebase, Dockerfil
 
 ### 🌐 Live Request Flow — How a Hospital User Accesses the ERP
 
-<img src="assets/user-flow.svg" alt="Real user request flow" width="100%"/>
+<img src="docs/user-flow.svg" alt="Real user request flow" width="100%"/>
 
 1. **Frontend load** — DNS resolves via Route 53 → CloudFront serves the cached React SPA from S3 (fast, edge-cached)
 2. **API call** — e.g. a distributor approving an order → hits ALB Ingress → routed to `order-service` on EKS → which calls `product-service` (reserve stock) and validates the JWT via `user-service` → result persisted to MongoDB Atlas
