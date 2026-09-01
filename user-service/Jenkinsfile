@@ -13,13 +13,17 @@ pipeline {
     stages {
         stage('mvn build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                dir('user-service') {
+                    sh 'mvn clean package -DskipTests'
+                }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG} .'
+                dir('user-service') {
+                    sh 'docker build -t ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG} .'
+                }
             }
         }
 

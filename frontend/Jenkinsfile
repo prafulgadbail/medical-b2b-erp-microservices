@@ -6,18 +6,25 @@ pipeline {
     environment {
         S3_BUCKET = "med-erp-frontend"
         AWS_REGION = "us-east-1"
+        VITE_USER_SERVICE_URL= "api.prafulgadbail.online/api/v1"
+        VITE_PRODUCT_SERVICE_URL= "api.prafulgadbail.online/api/v1"
+        VITE_ORDER_SERVICE_URL= "api.prafulgadbail.online/api/v1"
     }
 
     stages {
         stage('Build') {
             steps {
-                sh 'npm run build'
+                dir('frontend') {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+                
             }
         }
 
         stage('Deploy to S3') {
             steps {
-                sh 'aws s3 sync dist/ s3://${S3_BUCKET} --region ${AWS_REGION}'
+                sh 'aws s3 sync frontend/dist/ s3://${S3_BUCKET} --region ${AWS_REGION}'
             }
         }
     }
