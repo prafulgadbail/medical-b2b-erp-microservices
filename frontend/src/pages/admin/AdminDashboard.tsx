@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Users, Package, ShoppingCart, TrendingUp, AlertTriangle, Clock } from 'lucide-react'
+import { Package, ShoppingCart, AlertTriangle, Clock } from 'lucide-react'
 import StatCard from '../../components/common/StatCard'
 import { productsApi } from '../../api/products'
 import { ordersApi } from '../../api/orders'

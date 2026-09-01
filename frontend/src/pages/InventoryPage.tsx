@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Boxes, AlertTriangle, Clock, CheckCircle } from 'lucide-react'
+import { AlertTriangle, Clock, CheckCircle } from 'lucide-react'
 import { productsApi } from '../api/products'
 import { format } from 'date-fns'
 import type { InventoryItem } from '../types'

@@ -2,7 +2,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../../store/authStore'
 import {
   LayoutDashboard, Package, Boxes, ShoppingCart,
-  LogOut, Menu, X, Activity, Users
+  LogOut, Menu, X, Activity
 } from 'lucide-react'
 import { useState } from 'react'
 import clsx from 'clsx'
