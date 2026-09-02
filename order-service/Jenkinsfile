@@ -7,6 +7,7 @@ pipeline {
         AWS_REGION = "us-east-1"
         ECR_REGISTRY = "261945560801.dkr.ecr.us-east-1.amazonaws.com"
         ECR_REPO = "med-erp/order-service"
+        CLUSTER_NAME = "dev-cluster"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
@@ -31,6 +32,25 @@ pipeline {
             steps {
                 sh 'aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}'
                 sh 'docker push ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG}'
+            }
+        }
+
+        stage('Deploy to EKS') {
+            steps {
+                sh '''
+                    aws eks update-kubeconfig \
+                    --region ${AWS_REGION} \
+                    --name ${CLUSTER_NAME}
+
+                    kubectl apply -f k8s/deployment.yaml -n med-erp
+
+                    kubectl set image deployment/order-service \
+                     order-service=${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG} \
+                     -n med-erp
+
+                    kubectl rollout status deployment/order-service \
+                    -n med-erp
+                '''
             }
         }
     
