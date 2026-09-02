@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: med-erp
+
+spec:
+  replicas: 2
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+
+    spec:
+      containers:
+        - name: user-service
+          image: 261945560801.dkr.ecr.us-east-1.amazonaws.com/med-erp/user-service:latest
+          ports:
+            - containerPort: 8081
+          
+          envFrom:
+            - secretRef:
+                name: user-service
+          
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"  
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+              
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: med-erp
+
+spec:
+  selector:
+    app: user-service
+  ports:
+    - port: 8081
+      targetPort: 8081
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: secret
+metadata:
+  name: user-service
+  namespace: med-erp
+
+type: Opaque
+stringData:
+  MONGODB_URI=mongodb+srv://mongodbuser:mongodb%408087@mederpdb.gxofhva.mongodb.net/users_db?appName=mederpdb
+  JWT_SECRET=your-256-bit-hex-encoded-secret-key-here
+  JWT_EXPIRATION=86400000
+  JWT_REFRESH_EXPIRATION=604800000
+  CORS_ALLOWED_ORIGINS=http://localhost:5173,https://yourdomain.com

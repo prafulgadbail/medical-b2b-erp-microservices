@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+  namespace: med-erp
+
+spec:
+  replicas: 2
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+
+    spec:
+      containers:
+        - name: order-service
+          image: 261945560801.dkr.ecr.us-east-1.amazonaws.com/med-erp/order-service:latest
+          ports:
+            - containerPort: 8083
+          
+          envFrom:
+            - secretRef:
+                name: order-service
+          
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"  
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  namespace: med-erp
+
+spec:
+  selector:
+    app: order-service
+  ports:
+    - port: 8083
+      targetPort: 8083
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: secret
+metadata:
+  name: order-service
+  namespace: med-erp
+
+type: Opaque
+stringData:
+  MONGODB_URI=mongodb+srv://mongodbuser:mongodb%408087@mederpdb.gxofhva.mongodb.net/orders_db?appName=mederpdb
+  JWT_SECRET=your-256-bit-hex-encoded-secret-key-here
+  CORS_ALLOWED_ORIGINS=http://localhost:5173,https://yourdomain.com
+  PRODUCT_SERVICE_URL=http://product-service:8082/api/v1
+  USER_SERVICE_URL=http://user-service:8081/api/v1
+
+
+
