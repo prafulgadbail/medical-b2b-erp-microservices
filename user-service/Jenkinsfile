@@ -7,6 +7,7 @@ pipeline {
         AWS_REGION = "us-east-1"
         ECR_REGISTRY = "261945560801.dkr.ecr.us-east-1.amazonaws.com"
         ECR_REPO = "med-erp/user-service"
+        CLUSTER_NAME = "dev-cluster"
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
