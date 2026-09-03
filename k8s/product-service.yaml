@@ -58,7 +58,7 @@ spec:
 ---
 
 apiVersion: v1
-kind: secret
+kind: Secret
 metadata:
   name: product-service
   namespace: med-erp
