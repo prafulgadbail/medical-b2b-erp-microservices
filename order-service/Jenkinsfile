@@ -38,18 +38,13 @@ pipeline {
         stage('Deploy to EKS') {
             steps {
                 sh '''
-                    aws eks update-kubeconfig \
-                    --region ${AWS_REGION} \
-                    --name ${CLUSTER_NAME}
+                    aws eks update-kubeconfig --region ${AWS_REGION} --name ${CLUSTER_NAME}
 
-                    kubectl apply -f k8s/deployment.yaml -n med-erp
+                    kubectl apply -f k8s/order-service.yaml -n med-erp
 
-                    kubectl set image deployment/order-service \
-                     order-service=${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG} \
-                     -n med-erp
+                    kubectl set image deployment/order-service order-service=${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG} -n med-erp
 
-                    kubectl rollout status deployment/order-service \
-                    -n med-erp
+                    kubectl rollout status deployment/order-service -n med-erp
                 '''
             }
         }
