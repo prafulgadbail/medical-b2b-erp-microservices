@@ -66,8 +66,8 @@ metadata:
 
 type: Opaque
 stringData:
-  MONGODB_URI=mongodb+srv://mongodbuser:mongodb%408087@mederpdb.gxofhva.mongodb.net/users_db?appName=mederpdb
-  JWT_SECRET=your-256-bit-hex-encoded-secret-key-here
-  JWT_EXPIRATION=86400000
-  JWT_REFRESH_EXPIRATION=604800000
-  CORS_ALLOWED_ORIGINS=http://localhost:5173,https://yourdomain.com
+  MONGODB_URI: mongodb+srv://mongodbuser:mongodb%408087@mederpdb.gxofhva.mongodb.net/users_db?appName=mederpdb
+  JWT_SECRET: 7f3c9a2e1b6d4f8a9c0e3b7d5a1f6c82e4d9b3a7c1f5e8d2
+  JWT_EXPIRATION: 86400000
+  JWT_REFRESH_EXPIRATION: 604800000
+  CORS_ALLOWED_ORIGINS: http://localhost:5173,https://prafulgadbail.online
